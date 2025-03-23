@@ -1,0 +1,40 @@
+.g-button_size_xs {
+    &, &::before {
+        border-radius: var(--g-border-radius-s);
+    }
+}
+
+.g-button_size_xs .g-button__text {
+    margin-left: 0;
+}
+
+.g-button_size_xs.g-button_view_normal-contrast {
+    height: 20px;
+
+    color: var(--color-base);
+
+    transition-property: opacity, color;
+    transition-duration: 0.3s;
+    transition-timing-function: ease-in-out;
+}
+
+.g-button_size_xs.g-button_view_normal-contrast .g-button__text {
+    margin-right: 0;
+}
+
+.g-button_size_xs.g-button_view_normal-contrast::before {
+    background-color: var(--g-color-base-generic);
+
+    transition: background-color 0.3s ease-in-out;
+}
+
+.g-button_size_xs.g-button_view_normal-contrast:hover::before {
+    background-color: var(--g-color-base-generic-hover);
+}
+
+.recharts-tooltip-wrapper {
+    z-index: 1000;
+}
+.recharts-tooltip-label {
+    color: black;
+}

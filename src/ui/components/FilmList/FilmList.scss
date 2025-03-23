@@ -1,0 +1,11 @@
+.film-list {
+    display: flex;
+    flex-direction: column;
+    gap: var(--g-spacing-4);
+
+    &__input {
+        display: flex;
+        gap: 4px;
+        width: 900px;
+    }
+}

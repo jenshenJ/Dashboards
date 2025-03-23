@@ -1,0 +1,13 @@
+.stat-block {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    align-items: center;
+    height: 160px;
+    width: 160px;
+
+    box-sizing: border-box;
+    margin: 5px 10px;
+
+    padding: 20px 0;
+}
