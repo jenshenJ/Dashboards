@@ -20,17 +20,17 @@ module.exports = function(app, db) {
 	  const end = req.query.endDate;
 	  const userId = req.query.userId;
 
-	  console.log(userId, 'userId');
 
       // Получаем данные пользователя из БД
       const users = db.collection('users');
-      const {username, _id, companies} = await users.findOne({_id: new ObjectId(userId || req.user.id)});
+      const {companies} = await users.findOne({_id: new ObjectId(userId || req.user.id)});
 
 	  const result = {
 		companies: [],
 	  }
 
 	  for (const id of companies) {
+		console.log(companies);
 		result.companies.push(obj[id]);
 	  }
 
