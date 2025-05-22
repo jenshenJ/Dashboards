@@ -116,6 +116,84 @@ module.exports = function(app, db) {
 			expected: plannedCostDirect,
 			real: realCostDirect,
 		}]];
+		// Calculate conversions
+		let realConversionsGoogle = 0;
+		let realConversionsDirect = 0;
+
+		for (const day of company.data) {
+			realConversionsGoogle += day.google_conversions || 0;
+			realConversionsDirect += day.direct_conversions || 0;
+		}
+
+		// Calculate comparison metrics (today vs yesterday)
+		const sortedData = [...company.data].sort((a, b) => new Date(b.date).getTime() - new Date(a.date).getTime());
+		const today = sortedData[0] || {
+			google_impressions: 0,
+			google_clicks: 0,
+			google_cost: 0,
+			google_conversions: 0,
+			direct_impressions: 0,
+			direct_clicks: 0,
+			direct_cost: 0,
+			direct_conversions: 0
+		};
+		const yesterday = sortedData[1] || {
+			google_impressions: 0,
+			google_clicks: 0,
+			google_cost: 0,
+			google_conversions: 0,
+			direct_impressions: 0,
+			direct_clicks: 0,
+			direct_cost: 0,
+			direct_conversions: 0
+		};
+
+		company.comparison = {
+			google: {
+				impressions: {
+					current: today.google_impressions,
+					previous: yesterday.google_impressions,
+					title: 'Показы'
+				},
+				clicks: {
+					current: today.google_clicks,
+					previous: yesterday.google_clicks,
+					title: 'Клики'
+				},
+				cost: {
+					current: today.google_cost,
+					previous: yesterday.google_cost,
+					title: 'Бюджет'
+				},
+				conversions: {
+					current: today.google_conversions || 0,
+					previous: yesterday.google_conversions || 0,
+					title: 'Конверсии'
+				}
+			},
+			direct: {
+				impressions: {
+					current: today.direct_impressions,
+					previous: yesterday.direct_impressions,
+					title: 'Показы'
+				},
+				clicks: {
+					current: today.direct_clicks,
+					previous: yesterday.direct_clicks,
+					title: 'Клики'
+				},
+				cost: {
+					current: today.direct_cost,
+					previous: yesterday.direct_cost,
+					title: 'Бюджет'
+				},
+				conversions: {
+					current: today.direct_conversions || 0,
+					previous: yesterday.direct_conversions || 0,
+					title: 'Конверсии'
+				}
+			}
+		};
 
 		company.metrika = {
 			google: {
@@ -130,11 +208,15 @@ module.exports = function(app, db) {
 				CPM: {
 					value: (realImpressionsGoogle / realCostGoogle / 1000).toFixed(2),
 					title: 'CPM'
+				},
+				Conversions: {
+					value: realConversionsGoogle,
+					title: 'Конверсии'
 				}
 			},
 			direct: {
 				CTR: {
-					value: `${(100 * realClicksDirect / realImpressionsGoogle).toFixed(2)}%`,
+					value: `${(100 * realClicksDirect / realImpressionsDirect).toFixed(2)}%`,
 					title: 'CTR',
 				},
 				CPC: {
@@ -144,10 +226,16 @@ module.exports = function(app, db) {
 				CPM: {
 					value: (realImpressionsDirect / realCostDirect / 1000).toFixed(2),
 					title: 'CPM',
+				},
+				Conversions: {
+					value: realConversionsDirect,
+					title: 'Конверсии'
 				}
 			}
-		  }
-	  }
+		}
+	}
+		
+
 
 	  
 
@@ -161,5 +249,53 @@ module.exports = function(app, db) {
       console.error('An error occurred:', error);
       res.status(500).send('Server error');
     }
+  })
+
+  // Get comments for a company
+  app.get('/companies/:companyId/comments', auth, async (req, res) => {
+    try {
+      const companyId = req.params.companyId;
+      const comments = db.collection('company_comments');
+      
+      const result = await comments.find({ companyId }).sort({ date: -1 }).toArray();
+      
+      res.json(result);
+    } catch (error) {
+      console.error('An error occurred:', error);
+      res.status(500).send('Server error');
+    }
   });
-};
+
+  // Add a comment to a company
+  app.post('/companies/:companyId/comments', auth, async (req, res) => {
+    try {
+      const companyId = req.params.companyId;
+      const { text } = req.body;
+      
+      if (!text || typeof text !== 'string' || text.trim() === '') {
+        return res.status(400).json({ error: 'Comment text is required' });
+      }
+      
+      const comments = db.collection('company_comments');
+      const users = db.collection('users');
+      
+      const user = await users.findOne({ _id: new ObjectId(req.user.id) });
+      
+      const newComment = {
+        id: new ObjectId().toString(),
+        companyId,
+        text,
+        author: user.username,
+        isAdmin: user.isAdmin || false,
+        date: new Date().toISOString()
+      };
+      
+      await comments.insertOne(newComment);
+      
+      res.status(201).json(newComment);
+    } catch (error) {
+      console.error('An error occurred:', error);
+      res.status(500).send('Server error');
+    }
+  });
+}

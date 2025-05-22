@@ -1,0 +1,70 @@
+.company-comments {
+    margin-top: 24px;
+    margin-bottom: 24px;
+    padding: 20px;
+    
+    &__title {
+        display: block;
+        margin-bottom: 24px;
+    }
+    
+    &__comments-list {
+        margin-bottom: 20px;
+        max-height: 300px;
+        overflow-y: auto;
+    }
+    
+    &__no-comments {
+        color: #666;
+        font-style: italic;
+        padding: 10px 0;
+    }
+    
+    &__comment {
+        margin-bottom: 12px;
+        padding: 12px;
+        
+        &:last-child {
+            margin-bottom: 0;
+        }
+    }
+    
+    &__author {
+        font-weight: 700;
+    }
+    
+    &__admin-badge {
+        display: inline-block;
+        background-color: #C30039;
+        color: white;
+        font-size: 12px;
+        padding: 2px 6px;
+        border-radius: 4px;
+        margin-left: 8px;
+    }
+    
+    &__date {
+        color: #666;
+    }
+    
+    &__text {
+        margin-top: 8px;
+        white-space: pre-wrap;
+    }
+    
+    &__add-comment {
+        margin-top: 16px;
+        display: flex;
+        flex-direction: column;
+        align-items: flex-end;
+    }
+    
+    &__textarea {
+        width: 100%;
+        margin-bottom: 12px;
+    }
+    
+    &__submit-button {
+        // Removed float: right
+    }
+}

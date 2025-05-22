@@ -1,4 +1,4 @@
-import { Person, Video, ArrowRightToSquare, LayoutHeaderCells } from '@gravity-ui/icons';
+import { Person, ArrowRightToSquare, LayoutHeaderCells } from '@gravity-ui/icons';
 
 import { routeMap } from '@/ui/router/routeMap';
 

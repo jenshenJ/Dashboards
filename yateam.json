@@ -1,0 +1,22 @@
+{
+    "disableFormatter": false,
+    "issueServerRenderTimeout": 1200,
+    "enableTrackerPolls": true,
+    "getHtmlFromBackendCache": true,
+    "renderEngine": "2",
+    "disableOldWikiSyntax": true,
+    "enableMultiPortfolioFeatures": true,
+    "enableYateamOnboardingPromo": false,
+    "showGpt": true,
+    "activeProactiveGpt": true,
+    "enableHalloweenGlobal": false,
+    "enableNewAutomationsInterface": true,
+    "showGoals": true,
+    "disableOldUIDate": "2024-12-28T03:00:00.000Z",
+    "disableOldUI": true,
+    "enableReplyNotifications": true,
+    "convertHtmlToYfmBlock": false,
+    "enableNewUITerminateRoute": true,
+    "enableTriggerConditionSLA": true,
+    "enableSupportChatYateam": true
+}

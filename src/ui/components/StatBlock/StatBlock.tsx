@@ -15,8 +15,8 @@ export const StatBlock = ({value, title}: StatBlockProps) => {
 
     return (
         <Card view={'filled'} theme={'utility'} className={cn()}>
-            <Text variant={'header-1'}>{title}</Text>
-            <Text variant={'subheader-3'}>{value}</Text>
+            <div className={cn('title')}>{title}</div>
+            <div className={cn('value')}>{value}</div>
         </Card>
     )
 };
