@@ -44,7 +44,7 @@ export const MetricChart: FC<MetricChartProps> = ({
     return (
         <div className="metric-chart">
             <Text variant='subheader-3'>{title}</Text>
-            <ResponsiveContainer width={450} height={300}>
+            <ResponsiveContainer width={400} height={300}>
                 <AreaChart
                     data={data}
                     margin={{
@@ -67,8 +67,8 @@ export const MetricChart: FC<MetricChartProps> = ({
                             `${tooltipLabel} ${formatCabinet(name)}`
                         ]}
                     />
-                    {googleChecked && <Area type="monotone" dataKey={dataKeyGoogle} stroke="#8884d8" fill="#8884d8" />}
-                    {yandexChecked && <Area type="monotone" dataKey={dataKeyYandex} stroke="#ffc658" fill="#ffc658" />}
+                    {googleChecked && <Area type="monotone" dataKey={dataKeyGoogle} stroke="#4a00e0" fill="#4a00e0" />}
+                    {yandexChecked && <Area type="monotone" dataKey={dataKeyYandex} stroke="#4caf50" fill="#4caf50" />}
                 </AreaChart>
             </ResponsiveContainer>
         </div>

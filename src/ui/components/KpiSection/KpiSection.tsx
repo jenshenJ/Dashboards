@@ -1,7 +1,7 @@
 import { FC } from 'react';
 import { Flex, Text } from '@gravity-ui/uikit';
 import './KpiSection.scss';
-import { BarChart, Bar, XAxis, CartesianGrid, Tooltip } from 'recharts';
+import { BarChart, Bar, XAxis, CartesianGrid, Tooltip, Legend } from 'recharts';
 import { StatBlock } from '@/ui/components/StatBlock/StatBlock';
 
 export type KpiSectionProps = {
@@ -44,41 +44,106 @@ export const KpiSection: FC<KpiSectionProps> = ({
             <Flex className="kpi-section__charts">
                 <BarChart
                     data={kpiData[0]}
-                    width={200}
-                    height={200}
+                    width={240}
+                    height={280}
+                    margin={{
+                        top: 10,
+                        right: 10,
+                        left: 10,
+                        bottom: 10,
+                    }}
                 >
-                    <CartesianGrid strokeDasharray="3 3" />
-                    <XAxis dataKey="name" />
-                    <Tooltip formatter={(value, name, item) => [value, `${item.dataKey === 'expected' ? 'План' : 'Текущий' } ${formatCabinet(name)}`]} />
-                    <Bar dataKey="expected" fill="#8884d8" />
-                    <Bar dataKey="real" fill="#82ca9d" />
+                    <CartesianGrid strokeDasharray="3 3" stroke="#f0f0f0" />
+                    <XAxis dataKey="name" tick={{ fontSize: 12 }} stroke="#666" />
+                    <Tooltip
+                        formatter={(value, name, item) => [value, `${item.dataKey === 'expected' ? 'План' : 'Текущий' } ${formatCabinet(name)}`]}
+                        contentStyle={{
+                            backgroundColor: 'rgba(255, 255, 255, 0.95)',
+                            border: 'none',
+                            borderRadius: '8px',
+                            boxShadow: '0 2px 10px rgba(0, 0, 0, 0.15)',
+                            padding: '10px 14px'
+                        }}
+                    />
+                    <Legend
+                        payload={[
+                            { value: 'План', type: 'square', color: '#4a00e0' },
+                            { value: 'Факт', type: 'square', color: '#4caf50' }
+                        ]}
+                        verticalAlign="top"
+                        align="center"
+                    />
+                    <Bar name="План" dataKey="expected" fill="#4a00e0" barSize={50} radius={[6, 6, 0, 0]} />
+                    <Bar name="Факт" dataKey="real" fill="#4caf50" barSize={50} radius={[6, 6, 0, 0]} />
                 </BarChart>
                 <BarChart
                     data={kpiData[1]}
-                    width={200}
-                    height={200}
+                    width={240}
+                    height={280}
+                    margin={{
+                        top: 10,
+                        right: 10,
+                        left: 10,
+                        bottom: 10,
+                    }}
                 >
-                    <CartesianGrid strokeDasharray="3 3" />
-                    <XAxis dataKey="name" />
-                    <Tooltip formatter={(value, name, item) => [value, `${item.dataKey === 'expected' ? 'План' : 'Текущий' } ${formatCabinet(name)}`]} />
-                    <Bar dataKey="expected" fill="#8884d8" />
-                    <Bar dataKey="real" fill="#82ca9d" />
+                    <CartesianGrid strokeDasharray="3 3" stroke="#f0f0f0" />
+                    <XAxis dataKey="name" tick={{ fontSize: 12 }} stroke="#666" />
+                    <Tooltip
+                        formatter={(value, name, item) => [value, `${item.dataKey === 'expected' ? 'План' : 'Текущий' } ${formatCabinet(name)}`]}
+                        contentStyle={{
+                            backgroundColor: 'rgba(255, 255, 255, 0.95)',
+                            border: 'none',
+                            borderRadius: '8px',
+                            boxShadow: '0 2px 10px rgba(0, 0, 0, 0.15)',
+                            padding: '10px 14px'
+                        }}
+                    />
+                    <Legend
+                        payload={[
+                            { value: 'План', type: 'square', color: '#4a00e0' },
+                            { value: 'Факт', type: 'square', color: '#4caf50' }
+                        ]}
+                        verticalAlign="top"
+                        align="center"
+                    />
+                    <Bar name="План" dataKey="expected" fill="#4a00e0" barSize={50} radius={[6, 6, 0, 0]} />
+                    <Bar name="Факт" dataKey="real" fill="#4caf50" barSize={50} radius={[6, 6, 0, 0]} />
                 </BarChart>
                 <BarChart
                     data={kpiData[2]}
-                    width={200}
-                    height={200}
+                    width={240}
+                    height={280}
+                    margin={{
+                        top: 10,
+                        right: 10,
+                        left: 10,
+                        bottom: 10,
+                    }}
                 >
-                    <CartesianGrid strokeDasharray="3 3" />
-                    <XAxis dataKey="name" />
-                    <Tooltip formatter={(value, name, item) => [`${formatCost(value)}`, `${item.dataKey === 'expected' ? 'План' : 'Текущий' } ${formatCabinet(name)}`]} />
-                    <Bar dataKey="expected" fill="#8884d8" />
-                    <Bar dataKey="real" fill="#82ca9d" />
+                    <CartesianGrid strokeDasharray="3 3" stroke="#f0f0f0" />
+                    <XAxis dataKey="name" tick={{ fontSize: 12 }} stroke="#666" />
+                    <Tooltip
+                        formatter={(value, name, item) => [`${formatCost(value)}`, `${item.dataKey === 'expected' ? 'План' : 'Текущий' } ${formatCabinet(name)}`]}
+                        contentStyle={{
+                            backgroundColor: 'rgba(255, 255, 255, 0.95)',
+                            border: 'none',
+                            borderRadius: '8px',
+                            boxShadow: '0 2px 10px rgba(0, 0, 0, 0.15)',
+                            padding: '10px 14px'
+                        }}
+                    />
+                    <Legend
+                        payload={[
+                            { value: 'План', type: 'square', color: '#4a00e0' },
+                            { value: 'Факт', type: 'square', color: '#4caf50' }
+                        ]}
+                        verticalAlign="top"
+                        align="center"
+                    />
+                    <Bar name="План" dataKey="expected" fill="#4a00e0" barSize={50} radius={[6, 6, 0, 0]} />
+                    <Bar name="Факт" dataKey="real" fill="#4caf50" barSize={50} radius={[6, 6, 0, 0]} />
                 </BarChart>
-                <StatBlock value={metrika.CTR.value} title={metrika.CTR.title}/>
-                <StatBlock value={formatCost(metrika.CPC.value || 0)} title={metrika.CPC.title}/>
-                <StatBlock value={metrika.CPM.value} title={metrika.CPM.title}/>
-                {metrika.Conversions && <StatBlock value={metrika.Conversions.value} title={metrika.Conversions.title}/>}
             </Flex>
         </Flex>
     );
